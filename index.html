@@ -5,242 +5,330 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WebCrafting Studio</title>
-  <meta name="description"
-    content="WebCrafting Studio — websites e conteúdo visual para negócios locais e restaurantes." />
 
   <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* Blobs animados para o background */
-    @keyframes blob-move-1 {
-      0% {
-        transform: translate(-10%, -10%) scale(1);
-      }
-
-      33% {
-        transform: translate(15%, -20%) scale(1.1);
-      }
-
-      66% {
-        transform: translate(5%, 10%) scale(0.95);
-      }
-
-      100% {
-        transform: translate(-10%, -10%) scale(1);
-      }
+    .circuit-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      pointer-events: none;
+      overflow: hidden;
     }
 
-    @keyframes blob-move-2 {
-      0% {
-        transform: translate(40%, 40%) scale(1);
-      }
-
-      33% {
-        transform: translate(20%, 10%) scale(1.05);
-      }
-
-      66% {
-        transform: translate(45%, 0%) scale(0.9);
-      }
-
-      100% {
-        transform: translate(40%, 40%) scale(1);
-      }
+    @keyframes circuitMove1 {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(150px); }
     }
 
-    @keyframes blob-move-3 {
-      0% {
-        transform: translate(-20%, 60%) scale(1);
-      }
-
-      50% {
-        transform: translate(0%, 30%) scale(1.1);
-      }
-
-      100% {
-        transform: translate(-20%, 60%) scale(1);
-      }
+    @keyframes circuitMove2 {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-200px); }
     }
 
-    .blob-1 {
-      animation: blob-move-1 28s ease-in-out infinite;
+    @keyframes circuitMove3 {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(120px); }
     }
 
-    .blob-2 {
-      animation: blob-move-2 32s ease-in-out infinite;
+    .animate-circuit-1 {
+      animation: circuitMove1 22s ease-in-out infinite alternate;
     }
 
-    .blob-3 {
-      animation: blob-move-3 36s ease-in-out infinite;
+    .animate-circuit-2 {
+      animation: circuitMove2 30s ease-in-out infinite alternate;
     }
 
-    /* Adicionando rolagem ao conteúdo */
-    .scrollable {
-      overflow-y: auto;
-      max-height: 100vh; /* Faz com que o conteúdo não ultrapasse a altura da tela */
+    .animate-circuit-3 {
+      animation: circuitMove3 26s ease-in-out infinite alternate;
     }
   </style>
 </head>
 
-<body class="relative bg-slate-950 text-slate-50">
+<body class="relative min-h-screen bg-slate-950 text-slate-50 overflow-y-auto">
 
-  <!-- Background fluido -->
-  <div class="pointer-events-none fixed inset-0 -z-10">
-    <div
-      class="blob-1 absolute -top-40 -left-32 h-80 w-80 rounded-full bg-gradient-to-br from-emerald-500/40 via-teal-400/25 to-slate-900/80 blur-3xl">
-    </div>
-    <div
-      class="blob-2 absolute top-1/4 -right-32 h-96 w-96 rounded-full bg-gradient-to-br from-teal-500/35 via-emerald-300/20 to-slate-900/90 blur-3xl">
-    </div>
-    <div
-      class="blob-3 absolute bottom-[-10%] left-1/3 h-96 w-96 rounded-full bg-gradient-to-br from-sky-500/20 via-emerald-400/25 to-slate-900/90 blur-3xl">
-    </div>
+  <!-- BACKGROUND SOFT BREEZE COM MAIS LINHAS -->
+  <div class="circuit-bg">
+    <svg class="absolute inset-0 w-full h-full opacity-[0.32] blur-sm">
+      <defs>
+        <linearGradient id="circuitGradient" x1="0%" y1="0%" x2="100%">
+          <stop offset="0%" stop-color="#2dd4bf" />
+          <stop offset="50%" stop-color="#38bdf8" />
+          <stop offset="100%" stop-color="#14b8a6" />
+        </linearGradient>
+      </defs>
+
+      <!-- Linha média -->
+      <path
+        d="M -150 200 Q 300 40 760 250 T 1600 260"
+        stroke="url(#circuitGradient)"
+        stroke-width="3"
+        fill="none"
+        class="animate-circuit-1" />
+
+      <!-- Linha inferior principal -->
+      <path
+        d="M -200 420 Q 230 620 900 350 T 1600 400"
+        stroke="url(#circuitGradient)"
+        stroke-width="2"
+        fill="none"
+        class="animate-circuit-2 opacity-60" />
+
+      <!-- Linha superior suave -->
+      <path
+        d="M -200 120 Q 200 300 900 150 T 1600 130"
+        stroke="url(#circuitGradient)"
+        stroke-width="4"
+        fill="none"
+        class="animate-circuit-3 opacity-40" />
+
+      <!-- NOVAS LINHAS (mais densidade, sobretudo em baixo) -->
+
+      <!-- Linha extra superior muito suave -->
+      <path
+        d="M -220 60 Q 250 0 880 120 T 1600 90"
+        stroke="url(#circuitGradient)"
+        stroke-width="2"
+        fill="none"
+        class="animate-circuit-3 opacity-20" />
+
+      <!-- Linha intermédia extra -->
+      <path
+        d="M -220 300 Q 260 160 880 280 T 1600 310"
+        stroke="url(#circuitGradient)"
+        stroke-width="2"
+        fill="none"
+        class="animate-circuit-1 opacity-30" />
+
+      <!-- Linha inferior extra 1 -->
+      <path
+        d="M -240 480 Q 200 680 900 420 T 1600 460"
+        stroke="url(#circuitGradient)"
+        stroke-width="2"
+        fill="none"
+        class="animate-circuit-2 opacity-45" />
+
+      <!-- Linha inferior extra 2 (ainda mais em baixo) -->
+      <path
+        d="M -260 540 Q 180 720 880 500 T 1600 520"
+        stroke="url(#circuitGradient)"
+        stroke-width="2"
+        fill="none"
+        class="animate-circuit-2 opacity-35" />
+    </svg>
   </div>
 
-  <!-- Conteúdo -->
+  <!-- CONTEÚDO PRINCIPAL -->
   <main class="relative z-10 flex items-center justify-center min-h-screen p-4 md:p-8">
-    <div class="w-full max-w-4xl bg-slate-900/80 border border-emerald-500/20 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur-xl px-5 py-7 md:px-8 md:py-9 flex flex-col gap-7 md:flex-row md:items-stretch">
+    <div class="relative w-full max-w-5xl flex justify-center">
 
-      <!-- Coluna Esquerda: logo + descrição -->
-      <section
-        class="md:w-1/3 bg-slate-900/70 rounded-2xl border border-emerald-400/35 px-5 py-7 flex flex-col items-center justify-between gap-6">
+      <!-- CARTÃO PRINCIPAL -->
+      <div
+        class="w-full bg-slate-900/80 border border-emerald-500/20 rounded-3xl backdrop-blur-xl px-5 py-7 md:px-8 md:py-9 flex flex-col gap-7 md:flex-row">
 
-        <!-- LOGO - VERSÃO REDONDA -->
-        <div class="mx-auto flex items-center justify-center">
-          <div class="relative w-36 h-36 md:w-40 md:h-40">
-            <!-- Glow à volta -->
-            <div class="absolute inset-0 rounded-full bg-emerald-500/35 blur-xl opacity-80"></div>
+        <!-- ESQUERDA -->
+        <section
+          class="md:w-1/3 bg-slate-900/70 rounded-2xl border border-emerald-400/35 px-5 py-7 flex flex-col items-center gap-6">
 
-            <!-- Círculo principal -->
+          <!-- LOGO -->
+          <div class="relative w-36 h-36">
+            <div class="absolute inset-0 bg-emerald-500/35 blur-xl rounded-full"></div>
             <div
               class="relative w-full h-full rounded-full border-2 border-emerald-300/80 bg-slate-950/90 flex items-center justify-center overflow-hidden">
-              <img
-                src="./webcrafting-logo.png"
-                alt="Logo da WebCrafting Studio"
-                class="w-full h-full object-cover"
-              />
+              <img src="./webcrafting-logo.png" class="w-full h-full object-cover" />
             </div>
           </div>
-        </div>
 
-        <!-- Nome + subtítulo -->
-        <div class="text-center space-y-1">
-          <h1 class="text-xl md:text-2xl font-semibold tracking-tight">WebCrafting Studio</h1>
-          <p class="text-xs md:text-sm text-emerald-300 uppercase tracking-[0.22em]">
-            WEBSITES &amp; CONTEÚDO VISUAL
-          </p>
-        </div>
-
-        <!-- Nova Descrição -->
-        <p class="text-[11px] md:text-xs text-slate-300/85 leading-relaxed text-center">
-          Seu negócio merece ser descoberto. Nós criamos a presença digital que gera visibilidade, credibilidade e crescimento.
-        </p>
-      </section>
-
-      <!-- Coluna Direita: info + links -->
-      <section class="md:w-2/3 flex flex-col gap-5">
-        <!-- Bloco texto principal -->
-        <div
-          class="bg-slate-900/70 rounded-2xl border border-slate-700/60 px-5 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h2 class="text-lg md:text-xl font-semibold">Presença digital feita à medida</h2>
-            <p class="text-xs md:text-sm text-slate-300 mt-1">
-              Websites rápidos, focados em conversão e adaptados a negócios locais — do menu à reserva.
+          <div class="text-center">
+            <h1 class="text-xl md:text-2xl font-semibold">WebCrafting Studio</h1>
+            <p class="text-xs md:text-sm text-emerald-300 uppercase tracking-[0.22em]">
+              WEBSITES & CONTEÚDO VISUAL
             </p>
           </div>
-          <span
-            class="inline-flex items-center justify-center rounded-full border border-emerald-400/60 px-4 py-1 text-[10px] md:text-xs font-medium text-emerald-200 uppercase tracking-[0.22em]">
-            Disponível para novos projetos
-          </span>
-        </div>
 
-        <!-- Caixas horizontais -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <p class="text-xs text-slate-300/85 text-center leading-relaxed">
+            Seu negócio merece ser descoberto. Nós criamos a presença digital que gera visibilidade,
+            credibilidade e crescimento.
+          </p>
+        </section>
 
-          <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/in/andr%C3%A9-pinto-95809b378/" target="_blank"
-            class="group bg-gradient-to-r from-sky-500 to-blue-700 rounded-2xl px-5 py-4 flex flex-col justify-between shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition transform hover:-translate-y-0.5 hover:scale-[1.01]">
-            <span class="text-[11px] uppercase tracking-[0.2em] text-sky-50/85">Rede profissional</span>
-            <div class="mt-1 flex items-center gap-2">
-              <!-- Ícone LinkedIn -->
-              <svg class="w-5 h-5 text-sky-50" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M5.5 4.25A2.25 2.25 0 1 1 3.25 6.5 2.25 2.25 0 0 1 5.5 4.25Zm-2 5h3.5V20H3.5Zm6 0h3.36v1.54h.05A3.68 3.68 0 0 1 16.9 9.9C20 9.9 20.5 11.94 20.5 15.1V20h-3.5v-4.1c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2V20H10Z" />
-              </svg>
-              <span class="text-lg font-semibold">LinkedIn</span>
+        <!-- DIREITA -->
+        <section class="md:w-2/3 flex flex-col gap-5">
+
+          <!-- Texto principal (AQUI MUDEI) -->
+          <div
+            class="bg-slate-900/70 rounded-2xl border border-slate-700/60 px-5 py-4 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+            <div>
+              <h2 class="text-lg md:text-xl font-semibold">Presença digital feita à medida</h2>
+              <p class="text-xs md:text-sm text-slate-300 mt-1">
+                Websites rápidos e focados em conversão.
+              </p>
             </div>
-            <span class="mt-1 text-xs text-sky-50/90 group-hover:underline">
-              /in/andre-pinto
+
+            <!-- Botão centrado e certinho -->
+            <span
+              class="inline-flex items-center justify-center rounded-full border border-emerald-400/60 px-6 py-2 text-[10px] md:text-xs font-medium text-emerald-200 tracking-[0.22em] uppercase text-center">
+              Disponível para novos projetos
             </span>
-          </a>
+          </div>
 
-          <!-- WhatsApp -->
-          <a href="https://wa.me/351912345678" target="_blank"
-            class="group bg-gradient-to-r from-emerald-400 to-teal-500 rounded-2xl px-5 py-4 flex flex-col justify-between shadow-lg shadow-emerald-400/25 hover:shadow-emerald-400/40 transition transform hover:-translate-y-0.5 hover:scale-[1.01]">
-            <span class="text-[11px] uppercase tracking-[0.2em] text-emerald-50/80">Contacto direto</span>
-            <div class="mt-1 flex items-center gap-2">
-              <!-- Ícone WhatsApp (estilo chat) -->
-              <svg class="w-5 h-5 text-emerald-50" fill="none" stroke="currentColor" stroke-width="1.7"
-                viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M7.5 20.25 4 21l.75-3.5A7.5 7.5 0 1 1 7.5 20.25Zm3.75-5.5c1 .8 1.9 1.2 2.6 1.4.3.1.7 0 .9-.3l.6-.8c.2-.3.2-.6 0-.9l-.5-.6c-.2-.2-.5-.3-.8-.2l-.7.2c-.6-.3-1.1-.7-1.5-1.2-.3-.4-.6-.9-.8-1.4l.3-.7c.1-.3 0-.6-.2-.8l-.5-.6c-.2-.2-.6-.3-.9-.1l-.9.5c-.3.2-.5.5-.5.9.1 1 .5 2 1.2 3 .7 1 1.5 1.7 2.4 2.3Z">
-                </path>
-              </svg>
-              <span class="text-lg font-semibold">WhatsApp</span>
+          <!-- CAIXAS -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <!-- EQUIPA -->
+            <div id="team-card"
+              class="cursor-pointer group bg-gradient-to-r from-sky-500 to-blue-700 rounded-2xl px-5 py-4 shadow-lg hover:scale-[1.01] transition">
+              <span class="text-[11px] uppercase tracking-[0.2em] text-sky-50/85">Rede profissional</span>
+              <div class="mt-1 flex justify-between items-center">
+                <div class="flex gap-2">
+                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M5.5 4.25A2.25 2.25 0 1 1 3.25 6.5 2.25 2.25 0 0 1 5.5 4.25Zm-2 5h3.5V20H3.5Zm6 0h3.36v1.54h.05A3.68 3.68 0 0 1 16.9 9.9C20 9.9 20.5 11.94 20.5 15.1V20h-3.5v-4.1c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2V20H10Z" />
+                  </svg>
+                  <div class="flex flex-col">
+                    <span class="text-lg font-semibold text-white">Equipa</span>
+                    <span class="text-[11px] text-white/80">Perfis da equipa.</span>
+                  </div>
+                </div>
+
+                <span class="text-[11px] bg-sky-900/40 border border-sky-200/50 rounded-full px-3 py-1">
+                  Ver perfis
+                </span>
+              </div>
             </div>
-            <span class="mt-1 text-xs text-emerald-50/85 group-hover:underline">+351 91 234 56 78</span>
-          </a>
 
-          <!-- Portfólio -->
-          <a href="https://andrematosdesign.my.canva.site/" target="_blank"
-            class="group bg-gradient-to-r from-indigo-800 to-sky-900 rounded-2xl px-5 py-4 flex flex-col justify-between shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition transform hover:-translate-y-0.5 hover:scale-[1.01]">
-            <span class="text-[11px] uppercase tracking-[0.2em] text-sky-50/85">Trabalho</span>
-            <div class="mt-1 flex items-center gap-2">
-              <!-- Ícone Portfólio (grid) -->
-              <svg class="w-5 h-5 text-sky-50" fill="none" stroke="currentColor" stroke-width="1.7"
-                viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="4" y="4" width="7" height="7" rx="1.5"></rect>
-                <rect x="13" y="4" width="7" height="7" rx="1.5"></rect>
-                <rect x="4" y="13" width="7" height="7" rx="1.5"></rect>
-                <rect x="13" y="13" width="7" height="7" rx="1.5"></rect>
-              </svg>
-              <span class="text-lg font-semibold">Portfólio</span>
+            <!-- WhatsApp -->
+            <a href="https://wa.me/351912345678" target="_blank"
+              class="group bg-gradient-to-r from-emerald-400 to-teal-500 rounded-2xl px-5 py-4 flex flex-col justify-between shadow-lg shadow-emerald-400/25 hover:shadow-emerald-400/40 transition transform hover:-translate-y-0.5 hover:scale-[1.01]">
+              <span class="text-[11px] uppercase tracking-[0.2em] text-emerald-50/80">Contacto direto</span>
+              <div class="mt-1 flex items-center gap-2">
+                <svg class="w-5 h-5 text-emerald-50" fill="none" stroke="currentColor" stroke-width="1.7"
+                  viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M7.5 20.25 4 21l.75-3.5A7.5 7.5 0 1 1 7.5 20.25Zm3.75-5.5c1 .8 1.9 1.2 2.6 1.4.3.1.7 0 .9-.3l.6-.8c.2-.3.2-.6 0-.9l-.5-.6c-.2-.2-.5-.3-.8-.2l-.7.2c-.6-.3-1.1-.7-1.5-1.2-.3-.4-.6-.9-.8-1.4l.3-.7c.1-.3 0-.6-.2-.8l-.5-.6c-.2-.2-.6-.3-.9-.1l-.9.5c-.3.2-.5.5-.5.9.1 1 .5 2 1.2 3 .7 1 1.5 1.7 2.4 2.3Z">
+                  </path>
+                </svg>
+                <span class="text-lg font-semibold">WhatsApp</span>
+              </div>
+              <span class="mt-1 text-xs text-emerald-50/85 group-hover:underline">Indisponível neste momento</span>
+            </a>
+
+            <!-- Portfólio -->
+            <a href="https://andrematosdesign.my.canva.site/" target="_blank"
+              class="group bg-gradient-to-r from-indigo-800 to-sky-900 rounded-2xl px-5 py-4 flex flex-col justify-between shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition transform hover:-translate-y-0.5 hover:scale-[1.01]">
+              <span class="text-[11px] uppercase tracking-[0.2em] text-sky-50/85">Trabalho</span>
+              <div class="mt-1 flex items-center gap-2">
+                <svg class="w-5 h-5 text-sky-50" fill="none" stroke="currentColor" stroke-width="1.7"
+                  viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                  <rect x="13" y="4" width="7" height="7" rx="1.5"></rect>
+                  <rect x="4" y="13" width="7" height="7" rx="1.5"></rect>
+                  <rect x="13" y="13" width="7" height="7" rx="1.5"></rect>
+                </svg>
+                <span class="text-lg font-semibold">Portfólio</span>
+              </div>
+            </a>
+
+            <!-- E-mail -->
+            <a href="mailto:webcrafting.studio@gmail.com"
+              class="group bg-gradient-to-r from-amber-400 to-orange-500 rounded-2xl px-5 py-4 flex flex-col justify-between shadow-lg shadow-amber-400/25 hover:shadow-amber-400/40 transition transform hover:-translate-y-0.5 hover:scale-[1.01]">
+              <span class="text-[11px] uppercase tracking-[0.2em] text-amber-50/85">Propostas &amp; briefing</span>
+              <div class="mt-1 flex items-center gap-2">
+                <svg class="w-5 h-5 text-amber-50" fill="none" stroke="currentColor" stroke-width="1.7"
+                  viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                  <path d="M5 7.5 12 12l7-4.5"></path>
+                </svg>
+                <span class="text-lg font-semibold">E-mail</span>
+              </div>
+              <span class="mt-1 text-xs text-amber-50/90 group-hover:underline">
+                webcrafting.studio@gmail.com
+              </span>
+            </a>
+
+          </div>
+
+          <!-- MODAL EQUIPA -->
+          <div id="team-modal"
+            class="fixed inset-0 z-20 hidden flex items-center justify-center bg-slate-950/70 backdrop-blur-sm">
+
+            <div id="team-modal-content"
+              class="max-w-3xl w-full mx-4 bg-slate-900/95 border border-sky-500/40 rounded-3xl shadow-2xl px-6 py-6 overflow-y-auto max-h-[90vh]">
+
+              <div class="flex justify-between mb-6">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.22em] text-sky-300/80">Equipa</p>
+                  <h3 class="text-xl font-semibold">Perfis LinkedIn</h3>
+                </div>
+                <button id="team-modal-close"
+                  class="border border-slate-600/70 px-3 py-1 rounded-full text-xs hover:bg-slate-700/40">
+                  Fechar
+                </button>
+              </div>
+
+              <div class="flex flex-col md:flex-row gap-6">
+
+                <!-- Perfil 1 -->
+                <div
+                  class="flex-1 bg-slate-950/70 border border-sky-500/40 rounded-2xl px-5 py-6 flex flex-col items-center gap-4">
+                  <div class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-sky-200/80">
+                    <img src="./foto_AndreP.png" class="w-full h-full object-cover" />
+                  </div>
+                  <p class="text-base font-semibold">André Pinto</p>
+                  <p class="text-[11px] text-slate-200/85">Co-Founder</p>
+
+                  <a href="#"
+                    class="mt-2 px-4 py-1.5 text-xs rounded-full border border-sky-300/80 bg-sky-900/40">
+                    Ver perfil no LinkedIn
+                  </a>
+                </div>
+
+                <!-- Perfil 2 -->
+                <div
+                  class="flex-1 bg-slate-950/70 border border-sky-500/40 rounded-2xl px-5 py-6 flex flex-col items-center gap-4">
+                  <div class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-sky-200/80">
+                    <img src="./foto_AndreM.png" class="w-full h-full object-cover" />
+                  </div>
+                  <p class="text-base font-semibold">Segundo André</p>
+                  <p class="text-[11px] text-slate-200/85">Co-Founder</p>
+
+                  <a href="#"
+                    class="mt-2 px-4 py-1.5 text-xs rounded-full border border-sky-300/80 bg-sky-900/40">
+                    Ver perfil no LinkedIn
+                  </a>
+                </div>
+
+              </div>
+
             </div>
-            <span class="mt-1 text-xs text-sky-50/85 group-hover:underline">Co-founder Portefolio</span>
-          </a>
 
-          <!-- E-mail -->
-          <a href="mailto:webcrafting.studio@gmail.com"
-            class="group bg-gradient-to-r from-amber-400 to-orange-500 rounded-2xl px-5 py-4 flex flex-col justify-between shadow-lg shadow-amber-400/25 hover:shadow-amber-400/40 transition transform hover:-translate-y-0.5 hover:scale-[1.01]">
-            <span class="text-[11px] uppercase tracking-[0.2em] text-amber-50/85">Propostas &amp; briefing</span>
-            <div class="mt-1 flex items-center gap-2">
-              <!-- Ícone E-mail -->
-              <svg class="w-5 h-5 text-amber-50" fill="none" stroke="currentColor" stroke-width="1.7"
-                viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                <path d="M5 7.5 12 12l7-4.5"></path>
-              </svg>
-              <span class="text-lg font-semibold">E-mail</span>
-            </div>
-            <span class="mt-1 text-xs text-amber-50/90 group-hover:underline">
-              webcrafting.studio@gmail.com
-            </span>
-          </a>
+          </div>
 
-        </div>
+        </section>
+      </div>
 
-        <!-- Footer -->
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between text-[10px] md:text-[11px] text-slate-400/80 mt-1 gap-1">
-          <span>&copy; 2025 WebCrafting Studio. Todos os direitos reservados.</span>
-          <span>Design &amp; desenvolvimento feitos à mão em WebCrafting Studio.</span>
-        </div>
-      </section>
     </div>
   </main>
+
+  <script>
+    const teamCard = document.getElementById("team-card");
+    const teamModal = document.getElementById("team-modal");
+    const teamClose = document.getElementById("team-modal-close");
+
+    teamCard.addEventListener("click", () => {
+      teamModal.classList.remove("hidden");
+    });
+
+    teamClose.addEventListener("click", () => {
+      teamModal.classList.add("hidden");
+    });
+
+    teamModal.addEventListener("click", (e) => {
+      if (e.target === teamModal) teamModal.classList.add("hidden");
+    });
+  </script>
+
 </body>
-
 </html>
-       
-
-        
